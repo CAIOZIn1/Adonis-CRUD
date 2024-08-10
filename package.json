@@ -50,7 +50,8 @@
   },
   "dependencies": {
     "@adonisjs/core": "^6.12.1",
-    "reflect-metadata": "^0.2.2"
+    "reflect-metadata": "^0.2.2",
+    "zod": "3.23.8"
   },
   "hotHook": {
     "boundaries": [

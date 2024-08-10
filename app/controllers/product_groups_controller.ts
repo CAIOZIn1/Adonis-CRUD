@@ -1,6 +1,7 @@
 import { IproductGroup } from '../interfaces/index.js'
 import { randomUUID } from 'node:crypto'
 import type { HttpContext } from '@adonisjs/core/http'
+import { z } from 'zod'
 
 export default class ProductsGroupController {
   product: IproductGroup[] = [
@@ -12,9 +13,13 @@ export default class ProductsGroupController {
 
   async create({ request, response }: HttpContext) {
     try {
+      const bodySchema = z.object({
+        name: z.string(),
+      })
+
       const id = randomUUID()
 
-      const { name } = request.all()
+      const { name } = bodySchema.parse(request.all())
 
       this.product.push({ id, name })
 
@@ -26,7 +31,11 @@ export default class ProductsGroupController {
   }
 
   async show({ request, response }: HttpContext) {
-    const { id } = request.params()
+    const paramsSchema = z.object({
+      id: z.string(),
+    })
+
+    const { id } = paramsSchema.parse(request.params())
 
     const findedProduct = this.product.find((product) => product.id === id)
 
@@ -34,8 +43,15 @@ export default class ProductsGroupController {
   }
 
   async update({ request, response }: HttpContext) {
-    const { id } = request.params()
-    const { name } = request.all()
+    const paramsSchema = z.object({
+      id: z.string(),
+    })
+    const bodySchema = z.object({
+      name: z.string(),
+    })
+
+    const { id } = paramsSchema.parse(request.params())
+    const { name } = bodySchema.parse(request.all())
 
     const findedProduct = this.product.findIndex((product) => product.id === id)
 
@@ -49,7 +65,11 @@ export default class ProductsGroupController {
   }
 
   async delete({ request, response }: HttpContext) {
-    const { id } = request.params()
+    const paramsSchema = z.object({
+      id: z.string(),
+    })
+
+    const { id } = paramsSchema.parse(request.params())
 
     const findedProduct = this.product.findIndex((product) => product.id === id)
 

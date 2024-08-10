@@ -1,6 +1,7 @@
 import { Iproducts } from '../interfaces/index.js'
 import { randomUUID } from 'node:crypto'
 import type { HttpContext } from '@adonisjs/core/http'
+import { z } from 'zod'
 
 export default class ProductsController {
   product: Iproducts[] = [
@@ -14,21 +15,33 @@ export default class ProductsController {
 
   async create({ request, response }: HttpContext) {
     try {
+      const bodySchema = z.object({
+        name: z.string(),
+        qtd: z.number(),
+        groupID: z.string(),
+      })
+
       const id = randomUUID()
 
-      const { name, qtd, groupID } = request.all()
+      const { name, qtd, groupID } = bodySchema.parse(request.all())
 
       this.product.push({ id, name, qtd, groupID })
 
       return response.send({ success: true, id })
     } catch (err) {
       console.error(err)
-      return response.status(400).send({ error: 'Confira se não há nenhum valor faltando!' })
+      return response
+        .status(400)
+        .send({ error: 'Confira se os campos estão preenchidos corretamente!' })
     }
   }
 
   async show({ request, response }: HttpContext) {
-    const { id } = request.params()
+    const paramsSchema = z.object({
+      id: z.string(),
+    })
+
+    const { id } = paramsSchema.parse(request.params())
 
     const findedProduct = this.product.find((product) => product.id === id)
 
@@ -36,8 +49,18 @@ export default class ProductsController {
   }
 
   async update({ request, response }: HttpContext) {
-    const { id } = request.params()
-    const { name, qtd, groupID } = request.all()
+    const paramsSchema = z.object({
+      id: z.string(),
+    })
+
+    const bodySchema = z.object({
+      name: z.string(),
+      qtd: z.number(),
+      groupID: z.string(),
+    })
+
+    const { id } = paramsSchema.parse(request.params())
+    const { name, qtd, groupID } = bodySchema.parse(request.all())
 
     const findedProduct = this.product.findIndex((product) => product.id === id)
 
@@ -51,7 +74,11 @@ export default class ProductsController {
   }
 
   async delete({ request, response }: HttpContext) {
-    const { id } = request.params()
+    const paramsSchema = z.object({
+      id: z.string(),
+    })
+
+    const { id } = paramsSchema.parse(request.params())
 
     const findedProduct = this.product.findIndex((product) => product.id === id)
 
@@ -70,7 +97,11 @@ export default class ProductsController {
   }
 
   async listGroup({ request, response }: HttpContext) {
-    const { id } = request.params()
+    const paramsSchema = z.object({
+      id: z.string(),
+    })
+
+    const { id } = paramsSchema.parse(request.params())
 
     const findedProductsGroups = this.product.find((product) => product.groupID === id)
 

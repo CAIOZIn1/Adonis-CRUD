@@ -10,6 +10,7 @@
     "dev": "node ace serve --hmr",
     "test": "node ace test",
     "test:controllers:watch": "vitest --dir app/controllers",
+    "test:coverage": "vitest run --coverage",
     "lint": "eslint .",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit"
@@ -42,6 +43,7 @@
     "@japa/runner": "^3.1.4",
     "@swc/core": "^1.7.6",
     "@types/node": "^22.1.0",
+    "@vitest/coverage-v8": "2.0.5",
     "eslint": "^8.57.0",
     "hot-hook": "^0.2.6",
     "pino-pretty": "^11.2.2",

@@ -103,6 +103,30 @@ curl --request GET \
   --cookie sessionId=d6c97c7d-c5c4-4514-9f8e-b76e3b123179
   ```
 
+## 🧪 TESTES
+
+### Pré requisitos
+
+Antes de rodar os testes, certifique-se de que a sua aplicação esteja em execução. Você pode fazer isso usando os comandos abaixo:
+
+```bash
+nvm use && npm install || yarn install && npm run dev || yarn dev
+```
+
+Após garantir que a aplicação está no ar, execute o seguinte comando para rodar os testes dos controladores em tempo real:
+
+```bash
+npm run test:controllers:watch || yarn test:controllers:watch
+```
+
+Se preferir visualizar a execução completa dos testes, incluindo a cobertura do código, utilize:
+
+```bash
+npm run test:controllers:watch || yarn test:controllers:watch
+```
+
+Isso permitirá que você verifique a qualidade dos testes em toda a aplicação e visualize as métricas de cobertura de código.
+
 ## 📌 Observações
 
 Os produtos são armazenados temporariamente na memória, ou seja, se o servidor for reiniciado, os dados serão perdidos.

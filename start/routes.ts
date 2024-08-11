@@ -3,7 +3,7 @@ const ProductsController = () => import('#controllers/products_controller')
 const ProductsGroupController = () => import('#controllers/product_groups_controller')
 
 router.get('/products', [ProductsController, 'listAll'])
-router.get('/productsGroup/:id', [ProductsController, 'listGroup'])
+router.get('/products/group/:id', [ProductsController, 'listGroup'])
 router.get('/product/:id', [ProductsController, 'show'])
 router.post('/product', [ProductsController, 'create'])
 router.put('/product/:id', [ProductsController, 'update'])

@@ -9,6 +9,7 @@
     "build": "node ace build",
     "dev": "node ace serve --hmr",
     "test": "node ace test",
+    "test:controllers:watch": "vitest --dir app/controllers",
     "lint": "eslint .",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit"
@@ -46,11 +47,13 @@
     "pino-pretty": "^11.2.2",
     "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
-    "typescript": "~5.5"
+    "typescript": "~5.5",
+    "vitest": "2.0.5"
   },
   "dependencies": {
     "@adonisjs/core": "^6.12.1",
     "reflect-metadata": "^0.2.2",
+    "supertest": "7.0.0",
     "zod": "3.23.8"
   },
   "hotHook": {

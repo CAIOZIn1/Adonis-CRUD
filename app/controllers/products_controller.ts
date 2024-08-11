@@ -27,7 +27,7 @@ export default class ProductsController {
 
       this.product.push({ id, name, qtd, groupID })
 
-      return response.send({ success: true, id })
+      return response.status(201).send({ success: true, id })
     } catch (err) {
       console.error(err)
       return response
